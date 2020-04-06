@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class ProgressComponent implements OnInit {
-
+  progress1: number = 50;
+  progress2: number = 20;
+  
   constructor() { }
 
   ngOnInit(): void {
   }
 
-}
+ }

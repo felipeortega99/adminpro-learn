@@ -1,1 +1,36 @@
-<p>charts1 works!</p>
+<div class="row">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{graphs.graph1.leyend}}</h4>
+            <app-doughnut-chart [labels]="graphs.graph1.labels" [data]="graphs.graph1.data"></app-doughnut-chart>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{graphs.graph2.leyend}}</h4>
+            <app-doughnut-chart [labels]="graphs.graph2.labels" [data]="graphs.graph2.data"></app-doughnut-chart>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{graphs.graph3.leyend}}</h4>
+            <app-doughnut-chart [labels]="graphs.graph3.labels" [data]="graphs.graph3.data"></app-doughnut-chart>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{{graphs.graph4.leyend}}</h4>
+            <app-doughnut-chart [labels]="graphs.graph4.labels" [data]="graphs.graph4.data"></app-doughnut-chart>
+        </div>
+      </div>
+    </div>
+</div>
