@@ -10,6 +10,7 @@ import { PagesRoutes } from './pages-routing.module';
 import { IncreaserComponent } from '../components/increaser/increaser.component';
 import { ChartsModule } from 'ng2-charts';
 import { DoughnutChartComponent } from '../components/doughnut-chart/doughnut-chart.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { DoughnutChartComponent } from '../components/doughnut-chart/doughnut-ch
     Charts1Component,
     IncreaserComponent,
     DoughnutChartComponent,
+    AccountSettingsComponent,
   ],
   imports: [
     SharedModule,
