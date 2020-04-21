@@ -18,17 +18,17 @@ export class ImagePipe implements PipeTransform {
 
     switch(type) {
       case 'user':
-        url = `${url}/users/${img}`;
+        url += `/users/${img}`;
         break;
       case 'doctor':
-        url = `${url}/doctors/${img}`;
+        url += `/doctors/${img}`;
         break;
       case 'hospital':
-        url = `${url}/hospitals/${img}`;
+        url += `/hospitals/${img}`;
         break;
       default:
         console.log('Image type does not exist');
-        url = `${url}/users/xxx`;
+        url += `/users/xxx`;
     }
 
     return url;

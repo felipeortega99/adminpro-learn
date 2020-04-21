@@ -9,11 +9,10 @@ import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { LoginGuardGuard } from '../services/service.index';
 import { ProfileComponent } from './profile/profile.component';
+import { UsersComponent } from './users/users.component';
 
 
 const routes: Routes = [
-  { path: '', component: PagesComponent, canActivate: [LoginGuardGuard],
-    children: [
       { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' } },
       { path: 'progress', component: ProgressComponent, data: { title: 'Progress' }  },
       { path: 'charts1', component: Charts1Component, data: { title: 'Charts' }  },
@@ -21,8 +20,9 @@ const routes: Routes = [
       { path: 'rxjs', component: RxjsComponent, data: { title: 'RxJs' }  },
       { path: 'account-settings', component: AccountSettingsComponent, data: { title: 'Theme Settings' }  },
       { path: 'profile', component: ProfileComponent, data: { title: 'User Profile' }  },
+      // maintenance
+      { path: 'users', component: UsersComponent, data: { title: 'Users maintenance' }  },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
-  ]}
 ];
 
 export const PagesRoutes = RouterModule.forChild( routes );

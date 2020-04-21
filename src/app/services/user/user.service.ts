@@ -11,12 +11,12 @@ import { UploadFileService } from '../upload-file/upload-file.service';
 @Injectable()
 export class UserService {
   private url = URL_SERVICES;
-  public user: UserModel;
   private token: string;
+  public user: UserModel;
 
   constructor(private http: HttpClient,
               public router: Router,
-              private uploadFileService: UploadFileService) { 
+              private uploadFileService: UploadFileService) {
     this.laodStorage();
   }
 
@@ -70,9 +70,16 @@ export class UserService {
     return this.http.put(`${this.url}/user/${user._id}/?token=${this.token}`, user)
       .pipe(
         map((res: any) => {
-          const userDB: UserModel = res.user;
+
+          if (user._id === this.user._id) {
+            const userDB: UserModel = res.user;
+            this.saveToStorage(userDB._id, this.token, userDB);
+          }
+
+          
+
           swal('User updated successfully', user.name, 'success');
-          this.saveToStorage(userDB._id, this.token, userDB);
+
           return true;
         })
       );
@@ -109,5 +116,28 @@ export class UserService {
         this.saveToStorage(id, this.token, this.user);
       })
       .catch(err => console.error(err));
+   }
+
+   loadUsers(from: number = 0) {
+    const url = `${URL_SERVICES}/user?from=${from}`;
+    return this.http.get(url);
+   }
+
+   searchUser(term: string) {
+      const url = `${URL_SERVICES}/search/collection/users/${term}`;
+      return this.http.get(url)
+        .pipe(
+          map((res: any) => res.users)
+        );
+   }
+
+   deleteUser(id: string) {
+     const url = `${URL_SERVICES}/user/${id}?token=${this.token}`;
+     return this.http.delete(url).pipe(
+       map(() => {
+        swal('Poof! The profile has been deleted', '', 'success');
+        return true;
+       })
+     );
    }
 }
