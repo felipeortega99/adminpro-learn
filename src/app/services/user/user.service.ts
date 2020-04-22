@@ -11,7 +11,7 @@ import { UploadFileService } from '../upload-file/upload-file.service';
 @Injectable()
 export class UserService {
   private url = URL_SERVICES;
-  private token: string;
+  public token: string;
   public user: UserModel;
 
   constructor(private http: HttpClient,
@@ -75,8 +75,6 @@ export class UserService {
             const userDB: UserModel = res.user;
             this.saveToStorage(userDB._id, this.token, userDB);
           }
-
-          
 
           swal('User updated successfully', user.name, 'success');
 
