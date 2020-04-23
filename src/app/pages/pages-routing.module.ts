@@ -7,12 +7,13 @@ import { Charts1Component } from './charts1/charts1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
-import { LoginGuardGuard } from '../services/service.index';
+import { LoginGuardGuard, AdminGuard } from '../services/service.index';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
 import { HospitalsComponent } from './hospitals/hospitals.component';
 import { DoctorsComponent } from './doctors/doctors.component';
 import { DoctorComponent } from './doctors/doctor.component';
+import { SearchComponent } from './search/search.component';
 
 
 const routes: Routes = [
@@ -23,8 +24,14 @@ const routes: Routes = [
       { path: 'rxjs', component: RxjsComponent, data: { title: 'RxJs' }  },
       { path: 'account-settings', component: AccountSettingsComponent, data: { title: 'Theme Settings' }  },
       { path: 'profile', component: ProfileComponent, data: { title: 'User Profile' }  },
+      { path: 'search/:term', component: SearchComponent, data: { title: 'Search' }  },
       // maintenance
-      { path: 'users', component: UsersComponent, data: { title: 'Users maintenance' }  },
+      { 
+            path: 'users',
+            component: UsersComponent,
+            canActivate: [AdminGuard],
+            data: { title: 'Users maintenance' }
+      },
       { path: 'hospitals', component: HospitalsComponent, data: { title: 'Hospitals maintenance' }  },
       { path: 'doctors', component: DoctorsComponent, data: { title: 'Doctors maintenance' }  },
       { path: 'doctor/:id', component: DoctorComponent, data: { title: 'Update Doctor' }  },

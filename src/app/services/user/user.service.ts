@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { UserModel } from 'src/app/models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { URL_SERVICES } from '../../config/config';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import swal from 'sweetalert';
 import { Router } from '@angular/router';
 import { UploadFileService } from '../upload-file/upload-file.service';
@@ -13,6 +13,7 @@ export class UserService {
   private url = URL_SERVICES;
   public token: string;
   public user: UserModel;
+  public menu: any = [];
 
   constructor(private http: HttpClient,
               public router: Router,
@@ -30,9 +31,10 @@ export class UserService {
     return this.http.post(`${this.url}/login`, user)
       .pipe(
         map((res: any) => {
-          this.saveToStorage(res.id, res.token, res.user);
+          this.saveToStorage(res.id, res.token, res.user, res.menu);
           return true;
-        })
+        }),
+        catchError(err => swal('Error on Login', err.error.message, 'error'))
       );
   }
 
@@ -41,7 +43,7 @@ export class UserService {
     return this.http.post(`${this.url}/login/google`, { token })
       .pipe(
         map((res: any) => {
-          this.saveToStorage(res.id, res.token, res.user);
+          this.saveToStorage(res.id, res.token, res.user, res.menu);
           return true;
         })
       );
@@ -50,8 +52,10 @@ export class UserService {
   public logout() {
     this.user =  null;
     this.token = '';
+    this.menu = [];
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('menu');
 
     this.router.navigate(['/login']);
   }
@@ -62,7 +66,8 @@ export class UserService {
         map((res: any) => {
           swal('User created', user.email, 'success');
           return res.user;
-        })
+        }),
+        catchError(err => swal(err.error.message, err.error.errors.message, 'error'))
       );
   }
 
@@ -73,23 +78,26 @@ export class UserService {
 
           if (user._id === this.user._id) {
             const userDB: UserModel = res.user;
-            this.saveToStorage(userDB._id, this.token, userDB);
+            this.saveToStorage(userDB._id, this.token, userDB, this.menu);
           }
 
           swal('User updated successfully', user.name, 'success');
 
           return true;
-        })
+        }),
+        catchError(err => swal(err.error.message, err.error.errors.message, 'error'))
       );
   }
 
-  saveToStorage(id: string, token: string, user: UserModel): void {
+  saveToStorage(id: string, token: string, user: UserModel, menu: any): void {
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('menu', JSON.stringify(menu));
 
     this.user = user;
     this.token = token;
+    this.menu = menu;
   }
 
   isLoged(): boolean {
@@ -100,9 +108,11 @@ export class UserService {
      if (localStorage.getItem('token')) {
        this.token = localStorage.getItem('token');
        this.user = JSON.parse(localStorage.getItem('user'));
+       this.menu = JSON.parse(localStorage.getItem('menu'));
      } else {
        this.token = '';
        this.user = null;
+       this.menu = [];
      }
    }
 
@@ -111,7 +121,7 @@ export class UserService {
       .then((res: any) => {
         this.user.img = res.user.img;
         swal('User Image Updated', this.user.name, 'success');
-        this.saveToStorage(id, this.token, this.user);
+        this.saveToStorage(id, this.token, this.user, this.menu);
       })
       .catch(err => console.error(err));
    }

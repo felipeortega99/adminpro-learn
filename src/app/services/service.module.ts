@@ -5,6 +5,7 @@ import { LoginGuardGuard } from './guards/login-guard.guard';
 import { ModalUploadService } from '../components/modal-upload/modal-upload.service';
 import { HospitalService } from './hospital/hospital.service';
 import { DoctorService } from './doctor/doctor.service';
+import { AdminGuard } from './guards/admin.guard';
 
 
 
@@ -18,6 +19,7 @@ import { DoctorService } from './doctor/doctor.service';
     SharedService,
     UserService,
     LoginGuardGuard,
+    AdminGuard,
     UploadFileService,
     ModalUploadService,
     HospitalService,

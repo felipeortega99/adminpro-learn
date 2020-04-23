@@ -43,7 +43,6 @@ export class DoctorComponent implements OnInit {
     this.doctorService.getDoctor(id)
       .subscribe(doctor => {
         this.doctor = doctor;
-        console.log(this.doctor);
       });
   }
 
