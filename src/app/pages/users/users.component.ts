@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from 'src/app/models/user.model';
 import { UserService, ModalUploadService } from 'src/app/services/service.index';
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
 
 declare var swal: any;
 

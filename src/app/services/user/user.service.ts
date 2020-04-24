@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserModel } from 'src/app/models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { URL_SERVICES } from '../../config/config';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import swal from 'sweetalert';
 import { Router } from '@angular/router';
@@ -19,6 +19,22 @@ export class UserService {
               public router: Router,
               private uploadFileService: UploadFileService) {
     this.laodStorage();
+  }
+
+  renewToken() {
+    const url = `${URL_SERVICES}/login/renewtoken?token=${this.token}`;
+    return this.http.get(url).pipe(
+      map((res: any) => {
+        this.token = res.token;
+        localStorage.setItem('token', this.token);
+        return true;
+      }),
+      catchError((err: any) => {
+        this.router.navigate(['/login']);
+        swal(err.error.message, err.error.errors.message, 'error');
+        return throwError(err);
+      })
+    );
   }
 
   login(user: UserModel, remember: boolean): Observable<any> {

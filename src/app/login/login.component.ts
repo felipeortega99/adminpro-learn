@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { UserService } from '../services/service.index';
 import { UserModel } from '../models/user.model';
 import { GOOGLE_CLIENT_ID } from '../config/config';
+
 declare function init_plugins();
 declare const gapi: any;
 

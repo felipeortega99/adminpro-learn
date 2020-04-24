@@ -43,6 +43,8 @@ export class DoctorComponent implements OnInit {
     this.doctorService.getDoctor(id)
       .subscribe(doctor => {
         this.doctor = doctor;
+        this.doctor.hospital = doctor.hospital._id;
+        this.onChangeHospital(this.doctor.hospital);
       });
   }
 

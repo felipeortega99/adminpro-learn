@@ -6,13 +6,15 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { HeaderComponent } from './header/header.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
 
 @NgModule({
   declarations: [
     SidebarComponent,
     BreadcrumbsComponent,
     HeaderComponent,
-    NopagefoundComponent
+    NopagefoundComponent,
+    ModalUploadComponent
   ],
   imports: [
     RouterModule,
@@ -23,7 +25,8 @@ import { PipesModule } from '../pipes/pipes.module';
     SidebarComponent,
     BreadcrumbsComponent,
     HeaderComponent,
-    NopagefoundComponent
+    NopagefoundComponent,
+    ModalUploadComponent
   ]
 })
 export class SharedModule { }

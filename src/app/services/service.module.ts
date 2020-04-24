@@ -6,6 +6,7 @@ import { ModalUploadService } from '../components/modal-upload/modal-upload.serv
 import { HospitalService } from './hospital/hospital.service';
 import { DoctorService } from './doctor/doctor.service';
 import { AdminGuard } from './guards/admin.guard';
+import { VerifyTokenGuard } from './guards/verify-token.guard';
 
 
 
@@ -20,10 +21,11 @@ import { AdminGuard } from './guards/admin.guard';
     UserService,
     LoginGuardGuard,
     AdminGuard,
+    VerifyTokenGuard,
     UploadFileService,
     ModalUploadService,
     HospitalService,
-    DoctorService
+    DoctorService,
   ]
 })
 export class ServiceModule { }
